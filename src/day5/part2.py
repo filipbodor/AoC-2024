@@ -1,3 +1,7 @@
+import time
+
+t1 = time.time()
+
 rules_raw, updates = (lambda x: [[(lambda z: (int(z[0]), int(z[1])))(i.split('|')) for i in x[0].split('\n')], [[int(j) for j in i.split(',')] for i in x[1].split('\n')]])(open('../../inputs/day5.txt', 'r').read().strip().split('\n\n'))
 counter = 0
 
@@ -25,7 +29,7 @@ def orderUpdate(update):
 for update in updates:
     if not isRightOrder(update):
         orderUpdate(update)
-        print(update)
         counter += update[len(update) // 2]
 
+print(time.time() - t1)
 print(counter)
