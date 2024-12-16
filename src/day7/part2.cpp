@@ -43,13 +43,15 @@ int count(int n, int idx, long long subresult) {
     if (subresult > equations[n].num || idx == equations[n].numbers.size()) {
         return (subresult == equations[n].num);
     }
+    
+    if (count(n, idx + 1, subresult * equations[n].numbers[idx])) return 1;
 
-    int mul = count(n, idx + 1, subresult * equations[n].numbers[idx]);
-    if (mul) {
-        return 1;
-    }
-    int sum = count(n, idx + 1, subresult + equations[n].numbers[idx]);
-    return sum ? 1 : count(n, idx + 1, stoll(to_string(subresult) + to_string(equations[n].numbers[idx])));
+    if (count(n, idx + 1, subresult + equations[n].numbers[idx])) return 1;
+    
+    int mul = 10;
+    while (mul < equations[n].numbers[idx]) mul *= 10;
+
+    return count(n, idx + 1, subresult * mul + equations[n].numbers[idx]);
 
 }
 
@@ -77,5 +79,3 @@ int main() {
 
     return 0;
 }
-
-// 29745139526
